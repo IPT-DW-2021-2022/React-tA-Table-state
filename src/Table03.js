@@ -16,6 +16,7 @@ function Header() {
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th></th>
             </tr>
         </thead>
     )
@@ -34,13 +35,16 @@ const Body = (props) => {
             <tr key={index}>
                 <td>{row.name}</td>
                 <td>{row.surname}</td>
+                <td><button className="btn btn-outline-danger"
+                            onClick={ ()=>props.studentToRemove(index)  }
+                >Remove</button></td>
             </tr>
         )
     })
 
     // we return the body of table, with the 'rows' defined up
     return (
-        <tbody> {rows} </tbody>
+        <tbody>{rows}</tbody>
     )
 }
 
@@ -51,12 +55,12 @@ const Body = (props) => {
 class Table extends Component {
     render() {
         // 'read' data that was supplied to component 'Table'
-        const { studentsDataIN } = this.props
+        const { studentsDataIN, studentToRemoveOUT } = this.props
 
         return (
             <table className="table table-striped table-sucess">
                 <Header />
-                <Body dataTableIN={studentsDataIN} />
+                <Body dataTableIN={studentsDataIN} studentToRemove={studentToRemoveOUT} />
             </table>
         )
     }

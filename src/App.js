@@ -4,6 +4,7 @@
 
 import React from "react";
 import Table from "./Table03";
+import Form from "./Form";
 
 class App extends React.Component {
   // data is defined as 'state'
@@ -30,13 +31,36 @@ class App extends React.Component {
     ]
   }
 
+
+  removeStudent = (student) => {
+    // read the state
+    const { students } = this.state;
+
+    this.setState({
+      students: students.filter((st, i) => {
+        return i !== student
+      })
+      /**
+       * "2" == 2  --->  True
+       * "2" === 2  -->  False
+       */
+    })
+  }
+
+  handleNewStudent = (student) => {
+    this.setState({students:[...this.state.students, student]})
+  }
+
   render() {
     const { students } = this.state // <=> const {students}=this.state.students
 
     return (
       <div className="container">
         <h1>Students</h1>
-        <Table studentsDataIN={students} />
+        <Form newStudentOUT={this.handleNewStudent} />
+
+        <br />
+        <Table studentsDataIN={students} studentToRemoveOUT={this.removeStudent} />
       </div>
     )
   }
